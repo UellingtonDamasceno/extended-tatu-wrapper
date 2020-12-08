@@ -57,7 +57,9 @@ public class TATUMessage {
             if (TATUWrapper.isValidTATUAnswer(newMsg)) {
                 return Optional.ofNullable(newMsg);
             }
-        } else if (method.equals(ExtendedTATUMethods.FLOW) || method.equals(ExtendedTATUMethods.SET)) {
+        } else if (method.equals(ExtendedTATUMethods.FLOW)
+                || method.equals(ExtendedTATUMethods.SET)
+                || method.equals(ExtendedTATUMethods.CONNECT)) {
             return Optional.ofNullable(newMsg.substring(newMsg.indexOf("{")));
         }
         return Optional.ofNullable("");
