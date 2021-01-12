@@ -1,4 +1,4 @@
-package extended.tatu.wrapper.model;
+package extended.tatu.wrapper.enums;
 
 /**
  *

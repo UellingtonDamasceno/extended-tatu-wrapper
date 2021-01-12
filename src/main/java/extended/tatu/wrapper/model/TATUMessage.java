@@ -1,5 +1,6 @@
 package extended.tatu.wrapper.model;
 
+import extended.tatu.wrapper.enums.ExtendedTATUMethods;
 import extended.tatu.wrapper.util.TATUWrapper;
 import java.util.Optional;
 import org.json.JSONObject;

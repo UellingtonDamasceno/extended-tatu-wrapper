@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Random;
 
 /**
  *
@@ -12,15 +11,11 @@ import java.util.Random;
  */
 public class Device {
 
-    private final String id;
-    private final double latitude;
-    private final double longitude;
+    protected final String id;
+    protected final double latitude;
+    protected final double longitude;
     private int hashcode;
-    private List<Sensor> sensors;
-    
-    public Device(String id, List<Sensor> sensors){
-        this(id, new Random().nextDouble(), new Random().nextDouble(), sensors);
-    }
+    protected List<Sensor> sensors;
     
     public Device(String id, double latitude, double longitude, List<Sensor> sensors) {
         this.id = id;
@@ -45,7 +40,7 @@ public class Device {
     public List<Sensor> getSensors() {
         return Collections.unmodifiableList(sensors);
     }
-
+    
     public Optional<Sensor> getSensorBySensorId(String sensorId) {
         return this.sensors.stream()
                 .filter(sensor -> sensor.getId().equals(sensorId))

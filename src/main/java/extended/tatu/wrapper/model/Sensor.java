@@ -8,10 +8,10 @@ import java.util.Objects;
  */
 public class Sensor {
 
-    private final String id;
-    private final String type;
-    private final int collectionTime;
-    private final int publishingTime;
+    protected final String id;
+    protected final String type;
+    protected int collectionTime;
+    protected int publishingTime;
     private int hashcode;
 
     public Sensor(String id, String type, int collectionTime, int publishingTime) {
@@ -21,7 +21,7 @@ public class Sensor {
         this.publishingTime = publishingTime;
         this.hashcode = -1;
     }
-    
+
     public String getId() {
         return id;
     }
@@ -38,6 +38,14 @@ public class Sensor {
         return publishingTime;
     }
 
+    public void setCollectionTime(int collectionTime) {
+        this.collectionTime = collectionTime;
+    }
+
+    public void setPublishingTime(int publishingTime) {
+        this.publishingTime = publishingTime;
+    }
+
     @Override
     public int hashCode() {
         if (this.hashcode == -1) {
@@ -51,7 +59,7 @@ public class Sensor {
 
     @Override
     public boolean equals(Object object) {
-        return (object instanceof Sensor) && 
-                ((Sensor) object).hashCode() == this.hashCode();
+        return (object instanceof Sensor)
+                && ((Sensor) object).hashCode() == this.hashCode();
     }
 }
