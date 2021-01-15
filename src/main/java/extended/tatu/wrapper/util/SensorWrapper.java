@@ -31,11 +31,17 @@ public class SensorWrapper {
                         .collect(Collectors.toList());
     }
 
-    public static List<String> getAllJSONSensors(List<Sensor> sensors) {
+    public static List<String> getAllJSONSensor(List<Sensor> sensor) {
+        return getAllJSONObjectSensor(sensor).stream()
+                .map(JSONObject::toString)
+                .collect(Collectors.toList());
+    }
+
+    public static List<JSONObject> getAllJSONObjectSensor(List<Sensor> sensors) {
         return (sensors == null || sensors.isEmpty())
                 ? new ArrayList()
                 : sensors.stream()
-                        .map(SensorWrapper::toJSON)
+                        .map(SensorWrapper::toJSONObject)
                         .collect(Collectors.toList());
     }
 
@@ -48,22 +54,26 @@ public class SensorWrapper {
     }
 
     public static Sensor toSensor(String sensor) {
-        JSONObject jSensor = new JSONObject(sensor);
-        String id = jSensor.getString("id");
-        String type = jSensor.getString("type");
-        int collectionTime = jSensor.getInt("collection_time");
-        int publishingTime = jSensor.getInt("publishing_time");
+        return toSensor(new JSONObject(sensor));
+    }
+
+    public static Sensor toSensor(JSONObject sensor) {
+        String id = sensor.getString("id");
+        String type = sensor.getString("type");
+        int collectionTime = sensor.getInt("collection_time");
+        int publishingTime = sensor.getInt("publishing_time");
         return new Sensor(id, type, collectionTime, publishingTime);
     }
 
     public static String toJSON(Sensor sensor) {
-        return sensor == null
-                ? JSONObject.NULL.toString()
-                : new JSONObject()
-                        .put("id", sensor.getId())
-                        .put("type", sensor.getType())
-                        .put("collection_time", sensor.getCollectionTime())
-                        .put("publishing_time", sensor.getPublishingTime())
-                        .toString();
+        return toJSONObject(sensor).toString();
+    }
+
+    public static JSONObject toJSONObject(Sensor sensor) {
+        return new JSONObject()
+                .put("id", sensor.getId())
+                .put("type", sensor.getType())
+                .put("collection_time", sensor.getCollectionTime())
+                .put("publishing_time", sensor.getPublishingTime());
     }
 }

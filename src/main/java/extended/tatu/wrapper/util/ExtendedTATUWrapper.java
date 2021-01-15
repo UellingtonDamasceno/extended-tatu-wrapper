@@ -1,5 +1,6 @@
 package extended.tatu.wrapper.util;
 
+import extended.tatu.wrapper.model.Device;
 import org.json.JSONObject;
 
 /**
@@ -10,7 +11,7 @@ public final class ExtendedTATUWrapper {
 
     public static final String TOPIC_BASE = "dev/";
     public static final String TOPIC_RESPONSE = "/RES";
-    
+
     //"dev/CONNECTIONS"
     public static String getConnectionTopic() {
         return new StringBuilder()
@@ -24,15 +25,15 @@ public final class ExtendedTATUWrapper {
         return getConnectionTopic().concat(TOPIC_RESPONSE);
     }
 
-    //CONNECT VALUE BROKER {"HEADER":{"NAME":String}, "TIME_OUT":Double}
-    public static String buildConnectMessage(String deviceName, Double timeOut) {
+    //CONNECT VALUE BROKER {"HEADER":{"NAME":String}, DEVICE:{id:String, sensors[]:Sensor, latitude:long, longitude:long} "TIME_OUT":Double}
+    public static String buildConnectMessage(Device device, Double timeOut) {
         JSONObject requestBody = new JSONObject();
         JSONObject header = new JSONObject();
 
-        requestBody.accumulate("TIME_OUT", timeOut);
-        header.accumulate("NAME", deviceName);
-        requestBody.accumulate("HEADER", header);
-
+        requestBody.put("TIME_OUT", timeOut);
+        header.put("NAME", device.getId());
+        requestBody.put("HEADER", header);
+        requestBody.put("DEVICE", DeviceWrapper.toJSONObject(device));
         return new StringBuilder()
                 .append("CONNECT VALUE BROKER ")
                 .append(requestBody.toString())
@@ -45,16 +46,16 @@ public final class ExtendedTATUWrapper {
         JSONObject body = new JSONObject();
         JSONObject response = new JSONObject();
 
-        header.accumulate("NAME", deviceName);
-        body.accumulate("NEW_NAME", newDeviceName);
-        body.accumulate("CAN_CONNECT", sucess);
+        header.put("NAME", deviceName);
+        body.put("NEW_NAME", newDeviceName);
+        body.put("CAN_CONNECT", sucess);
 
-        response.accumulate("METHOD", "CONNECT");
-        response.accumulate("CODE", "POST");
-        response.accumulate("HEADER", header);
-        response.accumulate("BODY", body);
+        response.put("METHOD", "CONNACK");
+        response.put("CODE", "POST");
+        response.put("HEADER", header);
+        response.put("BODY", body);
 
         return response.toString();
     }
-    
+
 }

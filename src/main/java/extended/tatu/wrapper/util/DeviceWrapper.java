@@ -31,6 +31,10 @@ public class DeviceWrapper {
 
     }
 
+    public static Device toDevice(String device) {
+        return toDevice(new JSONObject(device));
+    }
+
     public static Device toDevice(Map device) {
         String id = (String) device.getOrDefault("id", INVALID_DEVICE);
         Double longitude = (Double) device.getOrDefault("longitude", 0);
@@ -40,8 +44,7 @@ public class DeviceWrapper {
         return new Device(id, longitude, latitude, allSensors);
     }
 
-    public static Device toDevice(String json) {
-        JSONObject device = new JSONObject(json);
+    public static Device toDevice(JSONObject device) {
         String id = device.optString("id", INVALID_DEVICE);
         double longitude = device.optDouble("longitude", 0);
         double latitude = device.optDouble("latitude", 0);
@@ -50,17 +53,15 @@ public class DeviceWrapper {
     }
 
     public static String toJSON(Device device) {
-        if (device == null) {
-            return JSONObject.NULL.toString();
-        } else {
-            List<String> sensors = SensorWrapper.getAllJSONSensors(device.getSensors());
-            return new JSONObject()
-                    .put("id", device.getId())
-                    .put("longitude", device.getLongitude())
-                    .put("longitude", device.getLongitude())
-                    .put("sensors", sensors)
-                    .toString();
-        }
+        return toJSONObject(device).toString();
     }
 
+    public static JSONObject toJSONObject(Device device) {
+        List<JSONObject> sensors = SensorWrapper.getAllJSONObjectSensor(device.getSensors());
+        return new JSONObject()
+                .put("id", device.getId())
+                .put("latitude", device.getLatitude())
+                .put("longitude", device.getLongitude())
+                .put("sensors", sensors);
+    }
 }
