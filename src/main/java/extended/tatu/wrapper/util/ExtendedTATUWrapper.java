@@ -32,6 +32,7 @@ public final class ExtendedTATUWrapper {
         requestBody.put("TIME_OUT", timeout);
         header.put("NAME", device.getId());
         header.put("SOURCE_IP", ip);
+        header.put("TIMESTAMP", System.currentTimeMillis());
         requestBody.put("HEADER", header);
         requestBody.put("DEVICE", DeviceWrapper.toJSONObject(device));
         return new StringBuilder()
@@ -47,6 +48,7 @@ public final class ExtendedTATUWrapper {
 
         requestBody.put("TIME_OUT", timeOut);
         header.put("NAME", device.getId());
+        header.put("TIMESTAMP", System.currentTimeMillis());
         requestBody.put("HEADER", header);
         requestBody.put("DEVICE", DeviceWrapper.toJSONObject(device));
         return new StringBuilder()

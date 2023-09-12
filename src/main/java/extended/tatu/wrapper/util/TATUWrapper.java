@@ -52,6 +52,7 @@ public final class TATUWrapper {
         JSONObject body = new JSONObject();
 
         header.put("NAME", deviceName);
+        header.put("TIMESTAMP", System.currentTimeMillis());
         body.put(sensorName, value);
         response.put("METHOD", "GET");
         response.put("CODE", "POST");
@@ -71,7 +72,7 @@ public final class TATUWrapper {
         flow.put("publish", publish);
 
         header.put("NAME", deviceName);
-
+        header.put("TIMESTAMP", System.currentTimeMillis());
         body.put(sensorName, values);
         body.put("FLOW", flow);
 
@@ -131,6 +132,13 @@ public final class TATUWrapper {
 
     public static String getSensorIdByTATURequest(String request) {
         return request.split(" ")[2];
+    }
+
+    public static Long getMessageTimestamp(String message) {
+        if(message == null || message.isBlank() || !message.contains("TIMESTAMP")){
+            return 0L;
+        }
+        return new JSONObject(message).getJSONObject("HEADER").getLong("TIMESTAMP");
     }
 
 }
