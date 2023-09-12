@@ -135,7 +135,7 @@ public final class TATUWrapper {
     }
 
     public static Long getMessageTimestamp(String message) {
-        if(message == null || message.isBlank() || !message.contains("TIMESTAMP")){
+        if(message == null || message.isEmpty()|| !message.contains("TIMESTAMP")){
             return 0L;
         }
         return new JSONObject(message).getJSONObject("HEADER").getLong("TIMESTAMP");
