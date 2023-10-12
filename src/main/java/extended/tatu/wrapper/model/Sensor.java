@@ -8,17 +8,32 @@ import java.util.Objects;
  */
 public class Sensor {
 
+    public static final double DEFAULT_MIN_VALUE = 10;
+    public static final double DEFAULT_MAX_VALUE = 30;
+    public static final double DEFAULT_DELTA = 0.5;
+
     protected final String id;
     protected final String type;
     protected int collectionTime;
     protected int publishingTime;
+    protected double minValue, maxValue, delta;
     private int hashcode;
 
     public Sensor(String id, String type, int collectionTime, int publishingTime) {
+        this(id, type, collectionTime, publishingTime, DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE, DEFAULT_DELTA);
+    }
+
+    public Sensor(String id, String type, int collectionTime, int publishingTime, double minValue, double maxValue, double delta) {
         this.id = id;
         this.type = type;
         this.collectionTime = collectionTime;
         this.publishingTime = publishingTime;
+        if (minValue > maxValue) {
+            throw new IllegalArgumentException("O sensor [id]: "+id +" [type]:" + type + " poussi um valor minimo maior:"+minValue+ " que o máximo "+ maxValue+".");
+        }
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+        this.delta = delta;
         this.hashcode = -1;
     }
 
