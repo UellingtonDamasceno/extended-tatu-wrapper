@@ -61,16 +61,16 @@ public class Sensor {
         this.publishingTime = publishingTime;
     }
 
-    public int getMinValue() {
-        return minValue;
+    public int getDelta() {
+        return this.delta;
     }
 
     public int getMaxValue() {
-        return maxValue;
+        return this.maxValue;
     }
 
-    public int getDelta() {
-        return delta;
+    public int getMinValue() {
+        return this.minValue;
     }
 
     @Override
