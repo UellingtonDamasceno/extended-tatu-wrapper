@@ -51,9 +51,9 @@ public class SensorWrapper {
         int collectionTime = (int) sensor.getOrDefault("collection_time", 0);
         int publishingTime = (int) sensor.getOrDefault("publishing_time", 0);
         
-        double minValue = (double) sensor.getOrDefault("min_value", Sensor.DEFAULT_MIN_VALUE);
-        double maxValue = (double) sensor.getOrDefault("max_value", Sensor.DEFAULT_MAX_VALUE);
-        double delta = (double) sensor.getOrDefault("delta", Sensor.DEFAULT_DELTA);
+        int minValue = (int) sensor.getOrDefault("min_value", Sensor.DEFAULT_MIN_VALUE);
+        int maxValue = (int) sensor.getOrDefault("max_value", Sensor.DEFAULT_MAX_VALUE);
+        int delta = (int) sensor.getOrDefault("delta", Sensor.DEFAULT_DELTA);
         
         return new Sensor(id, type, collectionTime, publishingTime, minValue, maxValue, delta);
     }
@@ -68,9 +68,9 @@ public class SensorWrapper {
         int collectionTime = sensor.getInt("collection_time");
         int publishingTime = sensor.getInt("publishing_time");
         
-        double minValue = sensor.has("min_value") ? sensor.getDouble("min_value") : Sensor.DEFAULT_MIN_VALUE;
-        double maxValue = sensor.has("max_value") ? sensor.getDouble("max_value") : Sensor.DEFAULT_MAX_VALUE;
-        double delta = sensor.has("delta") ? sensor.getDouble("delta") : Sensor.DEFAULT_DELTA;
+        int minValue = sensor.has("min_value") ? sensor.getInt("min_value") : Sensor.DEFAULT_MIN_VALUE;
+        int maxValue = sensor.has("max_value") ? sensor.getInt("max_value") : Sensor.DEFAULT_MAX_VALUE;
+        int delta = sensor.has("delta") ? sensor.getInt("delta") : Sensor.DEFAULT_DELTA;
         
         return new Sensor(id, type, collectionTime, publishingTime, minValue, maxValue, delta);
     }

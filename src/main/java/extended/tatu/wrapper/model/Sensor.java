@@ -8,22 +8,22 @@ import java.util.Objects;
  */
 public class Sensor {
 
-    public static final double DEFAULT_MIN_VALUE = 10;
-    public static final double DEFAULT_MAX_VALUE = 30;
-    public static final double DEFAULT_DELTA = 0.5;
+    public static final int DEFAULT_MIN_VALUE = 10;
+    public static final int DEFAULT_MAX_VALUE = 30;
+    public static final int DEFAULT_DELTA = 1;
 
     protected final String id;
     protected final String type;
     protected int collectionTime;
     protected int publishingTime;
-    protected double minValue, maxValue, delta;
+    protected int minValue, maxValue, delta;
     private int hashcode;
 
     public Sensor(String id, String type, int collectionTime, int publishingTime) {
         this(id, type, collectionTime, publishingTime, DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE, DEFAULT_DELTA);
     }
 
-    public Sensor(String id, String type, int collectionTime, int publishingTime, double minValue, double maxValue, double delta) {
+    public Sensor(String id, String type, int collectionTime, int publishingTime, int minValue, int maxValue, int delta) {
         this.id = id;
         this.type = type;
         this.collectionTime = collectionTime;
@@ -61,15 +61,15 @@ public class Sensor {
         this.publishingTime = publishingTime;
     }
 
-    public double getMinValue() {
+    public int getMinValue() {
         return minValue;
     }
 
-    public double getMaxValue() {
+    public int getMaxValue() {
         return maxValue;
     }
 
-    public double getDelta() {
+    public int getDelta() {
         return delta;
     }
 
