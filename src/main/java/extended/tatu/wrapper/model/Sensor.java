@@ -29,7 +29,7 @@ public class Sensor {
         this.collectionTime = collectionTime;
         this.publishingTime = publishingTime;
         if (minValue > maxValue) {
-            throw new IllegalArgumentException("O sensor [id]: " + id + " [type]:" + type + " poussi um valor minimo maior:" + minValue + " que o máximo " + maxValue + ".");
+            throw new IllegalArgumentException("O sensor [id]: " + id + " [type]:" + type + " poussi um valor minimo " + minValue + " maior que o máximo " + maxValue + ".");
         }
         this.minValue = minValue;
         this.maxValue = maxValue;
