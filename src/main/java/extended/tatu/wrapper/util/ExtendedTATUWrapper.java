@@ -64,9 +64,10 @@ public final class ExtendedTATUWrapper {
         JSONObject response = new JSONObject();
 
         header.put("NAME", deviceName);
+        header.put("TIMESTAMP", System.currentTimeMillis());
         body.put("NEW_NAME", newDeviceName);
         body.put("CAN_CONNECT", sucess);
-
+        
         response.put("METHOD", "CONNACK");
         response.put("CODE", "POST");
         response.put("HEADER", header);

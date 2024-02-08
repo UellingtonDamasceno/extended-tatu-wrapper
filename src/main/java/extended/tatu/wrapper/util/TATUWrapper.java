@@ -28,6 +28,8 @@ public final class TATUWrapper {
                 .append(collectSeconds)
                 .append(",\"publish\":")
                 .append(publishSeconds)
+                .append(", \"TIMESTAMP\":")
+                .append(System.currentTimeMillis())
                 .append("}").toString();
     }
 
@@ -135,10 +137,31 @@ public final class TATUWrapper {
     }
 
     public static Long getMessageTimestamp(String message) {
-        if(message == null || message.isEmpty()|| !message.contains("TIMESTAMP")){
-            return 0L;
+        if (message == null || message.isEmpty() || !message.contains("TIMESTAMP")) {
+            return -1L;
+        }
+        if (message.contains("FLOW")) {
+            JSONObject result = TATUWrapper.getJsonObjectFromFlowMessage(message);
+            if(result == null){
+                return -1L;
+            }
+            return result.getLong("TIMESTAMP");
         }
         return new JSONObject(message).getJSONObject("HEADER").getLong("TIMESTAMP");
     }
 
+    private static JSONObject getJsonObjectFromFlowMessage(String input) {
+        int startIndex = input.indexOf('{');
+
+        if (startIndex != -1) {
+            String jsonString = input.substring(startIndex);
+
+            try {
+                return new JSONObject(jsonString);
+            } catch (JSONException e) {
+                System.out.println("Erro ao analisar o JSON: " + e.getMessage());
+            }
+        }
+        return null;
+    }
 }
